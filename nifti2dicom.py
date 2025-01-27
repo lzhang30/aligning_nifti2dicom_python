@@ -60,7 +60,10 @@ def calculate_transform_matrix(source_coord, target_coord):
 
     
 def compute_affine(dicom_files):
-    dicom_files = sorted(dicom_files)
+    dicom_files = sorted(
+            [files for files in dicom_files],
+            key=lambda x: pydicom.dcmread(x).InstanceNumber
+        )
     
     ds = pydicom.dcmread(dicom_files[0])
     
